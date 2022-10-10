@@ -5,8 +5,11 @@ import (
 )
 
 func sum(a, b int) int {
-	return a + b
+	sum := a + b
+	return sum
 }
+
+
 func main() {
 	total := sum(2, 2)
 	fmt.Println("Hello world!")
