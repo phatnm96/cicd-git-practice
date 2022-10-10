@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/bits"
 )
 
 func sum(a, b int) int {
@@ -10,7 +9,7 @@ func sum(a, b int) int {
 	return sum
 }
 
-func subtract (a , b int) int {
+func subtract(a, b int) int {
 	if a >= b {
 		return a - b
 	} else {
@@ -19,18 +18,23 @@ func subtract (a , b int) int {
 
 }
 
-func multiply (a , b int) int {
+func multiply(a, b int) int {
 	return a * b
+
+}
+func chia(a, b int) int {
+	return a % b
 
 }
 
 func main() {
 	total := sum(2, 2)
-	subtract := subtract(3,1)
-	multi := multiply(3,1)
+	subtract := subtract(3, 1)
+	multi := multiply(3, 1)
+	chia := chia(6, 2)
 	fmt.Println("Hello world!")
 	fmt.Println(total)
-	fmt.Println(subtract)
 	fmt.Println(multi)
-
+	fmt.Println(subtract)
+	fmt.Println(chia)
 }
