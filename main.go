@@ -1,40 +1,25 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"os"
+
+	"cutloss-trading/app/db"
+	"cutloss-trading/app/routers"
 )
 
-func sum(a, b int) int {
-	sum := a + b
-	return sum
-}
-
-func subtract(a, b int) int {
-	if a >= b {
-		return a - b
-	} else {
-		return b - a
+func main() {
+	db, err := db.InitStore()
+	if err != nil {
+		log.Fatalf("failed to initialise the store: %s", err)
 	}
 
-}
+	echo := routers.Init(db)
 
-func multiply(a, b int) int {
-	return a * b
+	httpPort := os.Getenv("HTTP_PORT")
+	if httpPort == "" {
+		httpPort = "8080"
+	}
 
-}
-func chia(a, b int) int {
-	return a % b
-
-}
-
-func main() {
-	total := sum(2, 2)
-	subtract := subtract(3, 1)
-	multi := multiply(3, 1)
-	chia := chia(6, 2)
-	fmt.Println("Hello world!")
-	fmt.Println(total)
-	fmt.Println(multi)
-	fmt.Println(subtract)
-	fmt.Println(chia)
+	echo.Logger.Fatal(echo.Start(":" + httpPort))
 }
