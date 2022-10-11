@@ -31,6 +31,6 @@ jobs:
 workflows:
   build-with-docker:
     jobs:
-      - build-with-docker
-      branches: 
-          only: main
+      - build-with-docker:
+          branches: 
+              only: main
