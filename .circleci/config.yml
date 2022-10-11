@@ -2,7 +2,7 @@ version: 2.1
 
 executors: 
   docker-executor: 
-    -image: cimg/go:1.19.2
+    - image: cimg/go:1.19.2
 
 jobs:
   build-test-with-docker:
@@ -27,7 +27,7 @@ jobs:
             gotestsum --junitfile /tmp/test-reports/unit-tests.xml
       - store_test_results:
           path: /tmp/test-reports
-          
+
 workflows:
   build-with-docker:
     jobs:
