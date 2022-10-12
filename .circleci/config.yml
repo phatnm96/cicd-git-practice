@@ -43,6 +43,9 @@ jobs:
           failfast: true
           race: true
 
+  deploy: 
+
+
 workflows:
   lint-test-deploy:
     when:
@@ -50,11 +53,13 @@ workflows:
     jobs:
       - lint
       - test
+      - deploy
 
-  lint-test:
+  test:
     when:
       not:
-        - equal: [ main, << pipeline.git.branch >> ]
+        or:
+          - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - lint
       - test
