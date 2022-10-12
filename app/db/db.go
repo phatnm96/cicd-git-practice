@@ -32,7 +32,11 @@ func InitStore() (*gorm.DB, error) {
 		log.Fatalln(err)
 	}
 
-	db.AutoMigrate(&models.User{})
+	migrateError := db.AutoMigrate(&models.User{})
+
+	if migrateError != nil {
+		log.Fatalln(migrateError)
+	}
 
 	return db, nil
 }
@@ -42,13 +46,29 @@ func loadEnv() {
 	if "" == env {
 		env = "development"
 	}
-
-	godotenv.Load(".env." + env + ".local")
+	envLoad := godotenv.Load(".env." + env + ".local")
+	var envLoad2 error
 	if "test" != env {
-		godotenv.Load(".env.local")
+		envLoad2 = godotenv.Load(".env.local")
 	}
-	godotenv.Load(".env." + env)
-	godotenv.Load() // The Original .env
+	envLoad3 := godotenv.Load(".env." + env)
+	envLoad4 := godotenv.Load() // The Original .env
+
+	if envLoad != nil {
+		log.Fatalln(envLoad)
+	}
+
+	if envLoad2 != nil {
+		log.Fatalln(envLoad2)
+	}
+
+	if envLoad3 != nil {
+		log.Fatalln(envLoad3)
+	}
+
+	if envLoad4 != nil {
+		log.Fatalln(envLoad4)
+	}
 }
 
 func DbManager() *gorm.DB {
