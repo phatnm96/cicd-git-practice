@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   go: circleci/go@1.7.1
-  golangci-lint: habx/golangci-lint@0.3.0
+  golangci-lint: neilisaac/golangci-lint@0.0.1
 
 jobs:
   lint:
@@ -10,7 +10,7 @@ jobs:
       - image: cimg/go:1.19
     working_directory: ~/cicd-git-practice
     steps:
-      - golangci-lint/run-lint
+      - golangci-lint/lint
 
   test:
     working_directory: ~/cicd-git-practice
