@@ -8,7 +8,7 @@ jobs:
   lint:
     docker:
       - image: cimg/go:1.19
-    working_directory: ~/cicd-git-practice/app/
+    working_directory: ~/cicd-git-practice/
     steps:
       - golangci-lint/lint
 
