@@ -8,7 +8,8 @@ executors:
 jobs:
   build-test-with-docker:
     working_directory: ~/repo
-    executor: docker-executor
+    docker:
+      - image: cimg/go:1.19.2
     steps:
       - checkout
       - restore_cache:
@@ -33,7 +34,7 @@ workflows:
   build-with-docker:
     jobs:
       - build-test-with-docker:
-           filters:
+          filters:
             branches:
               only:
                 - main
