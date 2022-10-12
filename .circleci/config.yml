@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   go: circleci/go@1.7.1
-  golangci-lint: habx/golangci-lint@1.2.3
+  golangci-lint: habx/golangci-lint@0.3.0
 
 jobs:
   lint:
