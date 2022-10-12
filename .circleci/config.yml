@@ -1,23 +1,31 @@
 version: 2.1
 
+parameters:
+  image-go:
+    type: string
+    default: "cimg/go:1.19"
+  workingdir:
+    type: string
+    default: "~/cicd-git-practice"
+
 orbs:
   go: circleci/go@1.7.1
   golangci-lint: neilisaac/golangci-lint@0.0.1
 
 jobs:
   lint:
-    working_directory: ~/cicd-git-practice
+    working_directory: << pipeline.parameters.workingdir >>
     docker:
-      - image: cimg/go:1.19
+      - image: << pipeline.parameters.image-go >>
     steps:
       - checkout
       - go/mod-download
       - golangci-lint/lint
 
   test:
-    working_directory: ~/cicd-git-practice
+    working_directory: << pipeline.parameters.workingdir >>
     docker:
-      - image: cimg/go:1.19
+      - image: << pipeline.parameters.image-go >>
       - image: cimg/postgres:14.5
         environment:
           POSTGRES_USER: pg
@@ -43,11 +51,10 @@ workflows:
       - lint
       - test
 
-  test:
+  lint-test:
     when:
       not:
-        or:
-          - equal: [ main, << pipeline.git.branch >> ]
+        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - lint
       - test
