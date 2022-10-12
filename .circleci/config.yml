@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   test:
-    working_directory: ~/
+    working_directory: ~/repo
     docker:
       - image: cimg/go:1.19
       - image: cimg/postgres:14.5
