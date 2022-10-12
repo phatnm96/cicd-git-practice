@@ -6,6 +6,7 @@ orbs:
 
 jobs:
   lint:
+    working_directory: ~/cicd-git-practice
     docker:
       - image: cimg/go:1.19
     steps:
