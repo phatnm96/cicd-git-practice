@@ -47,13 +47,13 @@ jobs:
 
 
 workflows:
-  # lint-test-deploy:
-  #   when:
-  #       equal: [ main, << pipeline.git.branch >> ]
-  #   jobs:
-  #     - lint
-  #     - test
-  #     - deploy
+  lint-test-deploy:
+    when:
+        equal: [ main, << pipeline.git.branch >> ]
+    jobs:
+      - lint
+      - test
+      # - deploy
 
   test:
     when:
