@@ -2,8 +2,13 @@ version: 2.1
 
 orbs:
   go: circleci/go@1.7.1
+  golangci-lint: habx/golangci-lint@1.2.3
 
 jobs:
+  lint:
+    steps:
+      - golangci-lint/run-lint
+
   test:
     working_directory: ~/cicd-git-practice
     docker:
@@ -26,10 +31,18 @@ jobs:
           race: true
 
 workflows:
-  build-with-docker:
+  lint-test-deploy:
+    when:
+        equal: [ main, << pipeline.git.branch >> ]
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - main
+      - lint
+      - test
+
+  test:
+    when:
+      not:
+        or:
+          - equal: [ main, << pipeline.git.branch >> ]
+    jobs:
+      - lint
+      - test
