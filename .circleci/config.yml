@@ -34,7 +34,7 @@ orbs:
 
 jobs:
   lint:
-    working_directory: "./group/"
+    working_directory: "./cicd-git-practice/group/"
     docker:
       - image: << pipeline.parameters.image-go >>
     steps:
