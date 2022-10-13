@@ -39,8 +39,8 @@ jobs:
       - image: << pipeline.parameters.image-go >>
     steps:
       - checkout
-      - go/mod-download:
-      - golangci-lint:
+      - go/mod-download
+      - golangci-lint
 
   test:
     working_directory: << pipeline.parameters.workingdir >>
