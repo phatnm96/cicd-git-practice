@@ -4,23 +4,46 @@ parameters:
   image-go:
     type: string
     default: "cimg/go:1.19"
+  workingdir:
+    type: string
+    default: "~/cicd-git-practice"
+
+commands:
+  golangci-lint:
+    parameters:
+      version:
+        description: version of golangci-lint
+        type: string
+        default: '1.21.0'
+      flags:
+        description: command line flags for golangci-lint run
+        type: string
+        default: ''
+    steps:
+      - run:
+          name: Download golangci-lint
+          command: |
+            curl -sL https://github.com/golangci/golangci-lint/releases/download/v<< parameters.version >>/golangci-lint-<< parameters.version >>-linux-amd64.tar.gz | tar xz
+      - run:
+          name: Run golangci-lint checks
+          command: |
+            golangci-lint-<< parameters.version >>-linux-amd64/golangci-lint run << parameters.flags >>
 
 orbs:
   go: circleci/go@1.7.1
-  golangci-lint: neilisaac/golangci-lint@0.0.1
 
 jobs:
   lint:
-    working_directory: "~/cicd-git-practice"
+    working_directory: << pipeline.parameters.workingdir >>
     docker:
       - image: << pipeline.parameters.image-go >>
     steps:
       - checkout
       - go/mod-download
-      - golangci-lint/lint
+      - golangci-lint
 
   test:
-    working_directory: "~/cicd-git-practice"
+    working_directory: << pipeline.parameters.workingdir >>
     docker:
       - image: << pipeline.parameters.image-go >>
       - image: cimg/postgres:14.5
