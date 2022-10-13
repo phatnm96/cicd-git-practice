@@ -6,7 +6,7 @@ parameters:
     default: "cimg/go:1.19"
   workingdir:
     type: string
-    default: "~/cicd-git-practice"
+    default: "~/cicd-git-practice/app/"
 
 commands:
   golangci-lint:
