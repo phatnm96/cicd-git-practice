@@ -14,7 +14,7 @@ orbs:
 
 jobs:
   lint:
-    working_directory: "~/cicd-git-practice/app/app/"
+    working_directory: "~/cicd-git-practice/app"
     docker:
       - image: << pipeline.parameters.image-go >>
     steps:
@@ -23,7 +23,7 @@ jobs:
       - golangci-lint/lint
 
   test:
-    working_directory: << pipeline.parameters.workingdir >>
+    working_directory: "~/cicd-git-practice/app"
     docker:
       - image: << pipeline.parameters.image-go >>
       - image: cimg/postgres:14.5
