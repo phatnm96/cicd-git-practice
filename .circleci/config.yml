@@ -34,15 +34,13 @@ orbs:
 
 jobs:
   lint:
-    working_directory: << pipeline.parameters.workingdir >>
+    working_directory: "./group/"
     docker:
       - image: << pipeline.parameters.image-go >>
     steps:
       - checkout
       - go/mod-download:
-          app-dir: ./group/
       - golangci-lint:
-          app-dir: ./group/
 
   test:
     working_directory: << pipeline.parameters.workingdir >>
