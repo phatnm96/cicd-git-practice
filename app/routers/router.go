@@ -35,7 +35,7 @@ func Init(db *gorm.DB) *echo.Echo {
 		templates: template.Must(template.ParseGlob("app/public/views/*.html")),
 	}
 
-	e.GET("/home", handler.HomePage)
+	e.GET("/", handler.HomePage)
 	e.GET("/users", handler.GetUsers)
 	e.POST("/users", handler.CreateUser)
 	e.DELETE("/users/:id", handler.DeleteUser)
