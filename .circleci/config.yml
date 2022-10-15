@@ -18,6 +18,8 @@ commands:
 
 orbs:
   go: circleci/go@1.7.1
+  node: circleci/node@5.0.2
+  pulumi: pulumi/pulumi@2.1.0
 
 jobs:
   lint:
@@ -50,7 +52,25 @@ jobs:
           failfast: true
           race: true
 
-  # deploy: 
+  update-stack: 
+    working_directory: << pipeline.parameters.workingdir >>
+    docker:
+      - image: cimg/node:18.4.0
+    parameters:
+      stack:
+        type: string
+    steps: 
+      - checkout
+      - node/install-packages:
+          app-dir: ./infra/
+          pkg-manager: yarn
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
+      - pulumi/login
+      - pulumi/update:
+          working_directory: ./infra/
+          stack: << parameters.stack >>
 
 
 workflows:
@@ -60,7 +80,11 @@ workflows:
     jobs:
       - lint
       - test
-      # - deploy
+      - update-stack:
+          requires:
+            - lint
+            - test
+          stack: phatnm96/infra/dev
 
   test:
     when:
