@@ -74,7 +74,7 @@ const dbUrl = pulumi.interpolate`postgresql://${db.username}:${db.password}@${db
 
 // Fargate
 const repo = new awsx.ecr.Repository(`terminal_web-${stack}`);
-export const img = repo.buildAndPushImage("../group");
+export const img = repo.buildAndPushImage("../");
 const cluster = new awsx.ecs.Cluster(`terminal_web-${stack}`, { vpc: vpc });
 const lb = new awsx.lb.ApplicationListener(`lb`, {
   vpc,
