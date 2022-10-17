@@ -47,24 +47,24 @@ func loadEnv() {
 		env = "development"
 	}
 	envLoad := godotenv.Load(".env." + env + ".local")
-	var envLoad2 error
-	if "test" != env {
-		envLoad2 = godotenv.Load(".env.local")
-	}
-	envLoad3 := godotenv.Load(".env." + env)
+	// var envLoad2 error
+	// if "test" != env {
+	// 	envLoad2 = godotenv.Load(".env.local")
+	// }
+	// envLoad3 := godotenv.Load(".env." + env)
 	envLoad4 := godotenv.Load() // The Original .env
 
 	if envLoad != nil {
 		log.Fatalln(envLoad)
 	}
 
-	if envLoad2 != nil {
-		log.Fatalln(envLoad2)
-	}
+	// if envLoad2 != nil {
+	// 	log.Fatalln(envLoad2)
+	// }
 
-	if envLoad3 != nil {
-		log.Fatalln(envLoad3)
-	}
+	// if envLoad3 != nil {
+	// 	log.Fatalln(envLoad3)
+	// }
 
 	if envLoad4 != nil {
 		log.Fatalln(envLoad4)
